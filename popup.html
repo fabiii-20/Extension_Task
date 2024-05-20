@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Broken Link Finder</title>
+  <style>
+    body {
+      width: 300px;
+      padding: 10px;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div id="initial-view">
+    <h1>Broken Link Finder</h1>
+    <label>
+      <input type="checkbox" id="checkBox"> Enable Link Checker
+    </label>
+    <br>
+    <button id="doneButton">Done</button>
+  </div>
+  <div id="result-view" style="display:none;">
+    <h1>Broken Links</h1>
+    <ul id="result"></ul>
+    <button id="backButton">Back</button>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
