@@ -11,9 +11,6 @@
       "default_popup": "popup.html",
       "default_icon": "icon.png"
     },
-    "background": {
-      "service_worker": "background.js"
-    },
     "web_accessible_resources": [
       {
         "resources": ["libs/jspdf.umd.min.js", "libs/jspdf.plugin.autotable.min.js"],

@@ -65,7 +65,7 @@ document.getElementById('download-pdf').addEventListener('click', () => {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
-  // Adding "All Links" table to the PDF
+ 
   doc.text('All Links', 10, 10);
   doc.autoTable({
     head: [['URL', 'Status']],
@@ -75,7 +75,7 @@ document.getElementById('download-pdf').addEventListener('click', () => {
     startY: 20
   });
 
-  // Adding "Broken Links" table to the PDF
+  
   doc.text('Broken Links', 10, doc.lastAutoTable.finalY + 10);
   doc.autoTable({
     head: [['URL', 'Status']],
