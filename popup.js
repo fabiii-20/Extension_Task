@@ -61,4 +61,29 @@ document.getElementById('back').addEventListener('click', () => {
   document.getElementById('initial-view').style.display = 'block';
 });
 
-  
+document.getElementById('download-pdf').addEventListener('click', () => {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  // Adding "All Links" table to the PDF
+  doc.text('All Links', 10, 10);
+  doc.autoTable({
+    head: [['URL', 'Status']],
+    body: Array.from(document.querySelectorAll('#links-list tr')).map(row => {
+      return Array.from(row.cells).map(cell => cell.textContent);
+    }),
+    startY: 20
+  });
+
+  // Adding "Broken Links" table to the PDF
+  doc.text('Broken Links', 10, doc.lastAutoTable.finalY + 10);
+  doc.autoTable({
+    head: [['URL', 'Status']],
+    body: Array.from(document.querySelectorAll('#broken-links-list tr')).map(row => {
+      return Array.from(row.cells).map(cell => cell.textContent);
+    }),
+    startY: doc.lastAutoTable.finalY + 20
+  });
+
+  doc.save('links_report.pdf');
+});

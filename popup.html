@@ -6,20 +6,17 @@
     #result-view { display: none; }
     #initial-view{
       width: 300px;
-      padding: 30px;
-      font-family: Arial, sans-serif;
+      padding: 20px;
+      
     }
-    
     table { width: 100%; border-collapse: collapse; }
     th, td { border: 1px solid black; padding: 8px; text-align: left; }
   </style>
 </head>
 <body>
   <div id="initial-view">
-    <h1>Broken Link Finder</h1>
-    <label for="enable-check">Enable link check</label>
     <input type="checkbox" id="enable-check">
-    <br><br>
+    <label for="enable-check">Enable link check</label>
     <button id="done-button">Done</button>
   </div>
   <div id="result-view">
@@ -44,9 +41,13 @@
       <tbody id="broken-links-list"></tbody>
     </table>
     <br><br>
+    <button id="download-pdf">Download as PDF</button>
+    <br>
     <button id="back">Back</button>
   </div>
   <script src="popup.js"></script>
+  <script src="libs/jspdf.umd.min.js"></script>
+  <script src="libs/jspdf.plugin.autotable.min.js"></script>
 </body>
 </html>
 
