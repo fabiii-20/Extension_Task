@@ -1,29 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Broken Link Finder</title>
+  <title>Link Checker</title>
   <style>
-    body {
+    #result-view { display: none; }
+    #initial-view{
       width: 300px;
-      padding: 10px;
+      padding: 30px;
       font-family: Arial, sans-serif;
     }
+    
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid black; padding: 8px; text-align: left; }
   </style>
 </head>
 <body>
   <div id="initial-view">
     <h1>Broken Link Finder</h1>
-    <label>
-      <input type="checkbox" id="checkBox"> Enable Link Checker
-    </label>
-    <br>
-    <button id="doneButton">Done</button>
+    <label for="enable-check">Enable link check</label>
+    <input type="checkbox" id="enable-check">
+    <br><br>
+    <button id="done-button">Done</button>
   </div>
-  <div id="result-view" style="display:none;">
-    <h1>Broken Links</h1>
-    <ul id="result"></ul>
-    <button id="backButton">Back</button>
+  <div id="result-view">
+    <h3>All Links:</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>URL</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="links-list"></tbody>
+    </table>
+    <h3>Broken Links:</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>URL</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="broken-links-list"></tbody>
+    </table>
+    <br><br>
+    <button id="back">Back</button>
   </div>
   <script src="popup.js"></script>
 </body>
 </html>
+
