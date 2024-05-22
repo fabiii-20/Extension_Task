@@ -13,7 +13,7 @@ async function findAllLinks() {
   return results;
 }
 
-findAllLinks().then(links => {
+findAllLinks().then(links => {// checking
   chrome.runtime.sendMessage({ action: 'updateResults', links: links });
 });
 
