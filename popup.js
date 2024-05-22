@@ -1,13 +1,14 @@
 document.getElementById('done-button').addEventListener('click', () => {
   const isEnabled = document.getElementById('enable-check').checked;
-  
+
   if (isEnabled) {
     const startTime = Date.now();
     const timerElement = document.getElementById('timer');
-    let timerInterval = setInterval(()=>{
-      const elapsedTime = Math.floor((Date.now()-startTime)/1000)
-      timerElement.textContent = `Loading time : ${elapsedTime}s`
-    },1000)
+    let timerInterval = setInterval(() => {
+      const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+      timerElement.textContent = `Loading time: ${elapsedTime}s`;
+    }, 1000);
+
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const tabId = tabs[0].id;
       chrome.scripting.executeScript({
@@ -16,7 +17,7 @@ document.getElementById('done-button').addEventListener('click', () => {
       }, () => {
         chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           if (message.action === 'updateResults') {
-            clearInterval(timerInterval);
+            clearInterval(timerInterval); // Stop the timer
             updateUI(message.links);
             sendResponse({ status: 'success' });
           }
@@ -47,7 +48,7 @@ function updateUI(links) {
     row.appendChild(statusCell);
     linksList.appendChild(row);
 
-    if (link.status == 400 || link.status == 404 || link.status == 410 ||  link.status === 'error') { //more conditions to be added
+    if (link.status == 400 ||link.status == 404 || link.status == 410 || link.status === 'error') {
       const brokenRow = document.createElement('tr');
       const brokenUrlCell = document.createElement('td');
       brokenUrlCell.textContent = link.url;
@@ -72,7 +73,7 @@ document.getElementById('download-pdf').addEventListener('click', () => {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
- 
+  // Adding "All Links" table to the PDF
   doc.text('All Links', 10, 10);
   doc.autoTable({
     head: [['URL', 'Status']],
@@ -82,7 +83,7 @@ document.getElementById('download-pdf').addEventListener('click', () => {
     startY: 20
   });
 
-  
+  // Adding "Broken Links" table to the PDF
   doc.text('Broken Links', 10, doc.lastAutoTable.finalY + 10);
   doc.autoTable({
     head: [['URL', 'Status']],
@@ -93,4 +94,35 @@ document.getElementById('download-pdf').addEventListener('click', () => {
   });
 
   doc.save('links_report.pdf');
+});
+
+document.getElementById('download-excel').addEventListener('click', () => {
+  const wb = XLSX.utils.book_new();
+  wb.Props = {
+    Title: "Link Report",
+    Subject: "Link Checker",
+    Author: "Your Name",
+    CreatedDate: new Date()
+  };
+
+  // Convert all links to worksheet
+  const allLinksData = [["URL", "Status"]].concat(
+    Array.from(document.querySelectorAll('#links-list tr')).map(row => {
+      return Array.from(row.cells).map(cell => cell.textContent);
+    })
+  );
+  const allLinksSheet = XLSX.utils.aoa_to_sheet(allLinksData);
+  XLSX.utils.book_append_sheet(wb, allLinksSheet, "All Links");
+
+  // Convert broken links to worksheet
+  const brokenLinksData = [["URL", "Status"]].concat(
+    Array.from(document.querySelectorAll('#broken-links-list tr')).map(row => {
+      return Array.from(row.cells).map(cell => cell.textContent);
+    })
+  );
+  const brokenLinksSheet = XLSX.utils.aoa_to_sheet(brokenLinksData);
+  XLSX.utils.book_append_sheet(wb, brokenLinksSheet, "Broken Links");
+
+  // Download the workbook
+  XLSX.writeFile(wb, 'links_report.xlsx');
 });
