@@ -38,12 +38,12 @@ h2 {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    border-radius: 20px; /* Add curved borders */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    border-radius: 20px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
   }
   
   #done-button:hover {
-    background-color: rgb(58, 58, 185); /* Change the background color on hover */
+    background-color: rgb(58, 58, 185); 
   }
 
   /* #done-button {
@@ -117,12 +117,12 @@ h2 {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    border-radius: 20px; /* Add curved borders */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    border-radius: 20px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
   }
   
   #back:hover {
-    background-color: violet; /* Change the background color on hover */
+    background-color: violet;
   }
 
 
