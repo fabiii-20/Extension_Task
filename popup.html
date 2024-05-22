@@ -2,16 +2,9 @@
 <html>
 <head>
   <title>Link Checker</title>
-  <style>
-    #result-view { display: none; }
-    #initial-view{
-      width: 300px;
-      padding: 20px;
-      
-    }
-    table { width: 100%; border-collapse: collapse; }
-    th, td { border: 1px solid black; padding: 8px; text-align: left; }
-  </style>
+  
+   <link rel="stylesheet" href="style.css">
+ 
 </head>
 <body>
   <div id="initial-view">
@@ -22,6 +15,7 @@
     <button id="done-button">Done</button>
   </div>
   <div id="result-view">
+    <div id="all-links-container">
     <h3>All Links:</h3>
     <table>
       <thead>
@@ -32,6 +26,8 @@
       </thead>
       <tbody id="links-list"></tbody>
     </table>
+  </div>
+  <div id="broken-links-container">
     <h3>Broken Links:</h3>
     <table>
       <thead>
@@ -42,6 +38,7 @@
       </thead>
       <tbody id="broken-links-list"></tbody>
     </table>
+  </div>
     <br><br>
     <button id="download-pdf">Download as PDF</button>
     <br><br>

@@ -40,7 +40,7 @@ function updateUI(links) {
     row.appendChild(statusCell);
     linksList.appendChild(row);
 
-    if (link.status >= 400 || link.status === 'error') {
+    if (link.status == 400 || link.status == 404 || link.status == 410 ||  link.status === 'error') {
       const brokenRow = document.createElement('tr');
       const brokenUrlCell = document.createElement('td');
       brokenUrlCell.textContent = link.url;
