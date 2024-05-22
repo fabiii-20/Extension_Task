@@ -2,6 +2,12 @@ document.getElementById('done-button').addEventListener('click', () => {
   const isEnabled = document.getElementById('enable-check').checked;
   
   if (isEnabled) {
+    const startTime = Date.now();
+    const timerElement = document.getElementById('timer');
+    let timerInterval = setInterval(()=>{
+      const elapsedTime = Math.floor((Date.now()-startTime)/1000)
+      timerElement.textContent = `Loading time : ${elapsedTime}s`
+    },1000)
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const tabId = tabs[0].id;
       chrome.scripting.executeScript({
@@ -10,6 +16,7 @@ document.getElementById('done-button').addEventListener('click', () => {
       }, () => {
         chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           if (message.action === 'updateResults') {
+            clearInterval(timerInterval);
             updateUI(message.links);
             sendResponse({ status: 'success' });
           }
